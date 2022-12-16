@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <random>
 #include <conio.h>
+#include <cstdlib>
+#include <ctime>
 
 const int BOARD_SIZE = 3;
 
@@ -17,6 +19,7 @@ int randomNumber();
 
 int main()
 {
+    srand(time(NULL));
     std::vector<std::vector<char>> board(BOARD_SIZE, std::vector<char>(BOARD_SIZE, ' '));
 
     // Select player and AI's signs randomly
@@ -30,8 +33,8 @@ int main()
     {
         player = 'O';
         ai = 'X';
+        aiTurn(board, ai);
     }
-
     // Main game loop
     while (true)
     {
@@ -65,6 +68,7 @@ int main()
             break;
         }
     }
+    drawBoard(board);
     std::cout << "Press any key to continue..." << std::endl;
     getch();
 
@@ -476,10 +480,32 @@ void aiTurn(std::vector<std::vector<char>>& board, char ai)
 // This function generates a random integer between
 //  0 and 1 using the Mersenne Twister 19937 random number
 //  generator and the uniform_int_distribution class from the C++ Standard Library
-int randomNumber()
-{
-    std::random_device device;
-    std::mt19937 generator(device());
+// int randomNumber()
+// {
+//     std::random_device device;
+//     std::mt19937 generator(device());
+//     std::uniform_int_distribution<int> distribution(0, 1);
+//     return distribution(generator);
+// }
+// int randomNumber() {
+//     // Seed the random number generator with the current time
+//     srand(time(0));
+
+//     // Generate a random number between 0 and RAND_MAX
+//     int rn = rand();
+
+//     // Return 0 if the random number is less than RAND_MAX / 2, and 1 otherwise
+//     return (rn < RAND_MAX / 2) ? 0 : 1;
+// }
+// BAD IDEA, NOT STABLE
+// REFORMED WITH UNIFORM TO FIX
+int randomNumber() {
+    // // Seed the random number generator with the current time
+    std::mt19937 generator(time(0));
+
+    // Generate a random number between 0 and 1
     std::uniform_int_distribution<int> distribution(0, 1);
-    return distribution(generator);
+    int randomNumber = distribution(generator);
+
+    return randomNumber;
 }

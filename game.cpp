@@ -17,6 +17,11 @@ void playerTurn(std::vector<std::vector<char>>& board, char player);
 void aiTurn(std::vector<std::vector<char>>& board, char ai);
 int randomNumber();
 
+/**
+ * @brief Main function, initializes the game board and starts the game loop
+ * 
+ * @return 0
+*/
 int main()
 {
     srand(time(NULL));
@@ -90,7 +95,13 @@ int main()
 //     }
 // }
 
-// Draws the game board to the console
+
+/**
+ * @brief Draws the game board to the console
+ * 
+ * @param board The game board
+ * @return void
+*/
 void drawBoard(const std::vector<std::vector<char>>& board)
 {
     std::cout << "  +---+---+---+" << std::endl;
@@ -111,8 +122,13 @@ void drawBoard(const std::vector<std::vector<char>>& board)
     std::cout << "  +---+---+---+" << std::endl;
 }
 
-
-// Returns true if the player has won, false otherwise
+/**
+ * @brief Checks if the requested sign has won
+ * 
+ * @param board The game board
+ * @param player The requested player sign check
+ * @return true If the reqested player sign has won, false otherwise
+*/
 bool checkWin(const std::vector<std::vector<char>>& board, char player)
 {
     // Check rows
@@ -146,7 +162,12 @@ bool checkWin(const std::vector<std::vector<char>>& board, char player)
     return false;
 }
 
-// Returns true if the game is a tie, false otherwise
+/**
+ * @brief Checks if the game is a tie
+ * 
+ * @param board The game board
+ * @return true If the game is a tie, false otherwise
+*/
 bool checkTie(const std::vector<std::vector<char>>& board)
 {
     // Check if there are any empty spaces on the board
@@ -165,7 +186,13 @@ bool checkTie(const std::vector<std::vector<char>>& board)
     return true;
 }
 
-// Allows the player to make a move on the game board using the numpad layout
+/**
+ * @brief Allows the player to make a move on the game board using the numpad layout
+ * 
+ * @param board The game board
+ * @param player The player's sign
+ * @return void
+*/
 void playerTurn(std::vector<std::vector<char>>& board, char player)
 {
     int move;
@@ -231,7 +258,14 @@ void playerTurn(std::vector<std::vector<char>>& board, char player)
     }
 }
 
-// Allows the AI to make a move on the game board
+/**
+ * @brief Prompts the AI to make a move and updates the board accordingly, Allows the AI to make a move on the game board
+ * 
+ * @param board The current state of the tic-tac-toe board.
+ * @param ai The character representing the AI sign.
+ * 
+ * @return void
+*/
 void aiTurn(std::vector<std::vector<char>>& board, char ai)
 {
     // Check for winning move
@@ -411,22 +445,22 @@ void aiTurn(std::vector<std::vector<char>>& board, char ai)
         return;
     }
     // Play opposite corner
-    if (board[0][0] == 'O' && board[2][2] == ' ')
+    if (board[0][0] == player && board[2][2] == ' ')
     {
         board[2][2] = ai;
         return;
     }
-    if (board[0][2] == 'O' && board[2][0] == ' ')
+    if (board[0][2] == player && board[2][0] == ' ')
     {
         board[2][0] = ai;
         return;
     }
-    if (board[2][0] == 'O' && board[0][2] == ' ')
+    if (board[2][0] == player && board[0][2] == ' ')
     {
         board[0][2] = ai;
         return;
     }
-    if (board[2][2] == 'O' && board[0][0] == ' ')
+    if (board[2][2] == player && board[0][0] == ' ')
     {
         board[0][0] = ai;
         return;
@@ -476,7 +510,7 @@ void aiTurn(std::vector<std::vector<char>>& board, char ai)
         return;
     }
 }
-
+/*
 // This function generates a random integer between
 //  0 and 1 using the Mersenne Twister 19937 random number
 //  generator and the uniform_int_distribution class from the C++ Standard Library
@@ -497,8 +531,19 @@ void aiTurn(std::vector<std::vector<char>>& board, char ai)
 //     // Return 0 if the random number is less than RAND_MAX / 2, and 1 otherwise
 //     return (rn < RAND_MAX / 2) ? 0 : 1;
 // }
-// BAD IDEA, NOT STABLE
+*/
+// BAD IDEA, NOT STABLE, better version if debugged seed properly
 // REFORMED WITH UNIFORM TO FIX
+
+/* This function generates a random integer between
+ 0 and 1 using the Mersenne Twister 19937 random number
+ generator and the uniform_int_distribution class from the C++ Standard Library 
+*/
+/**
+ * @brief This function generates a random integer between 0 and 1 using the Mersenne Twister 19937 random number generator and the uniform_int_distribution class from the C++ Standard Library
+ * 
+ * @return int
+*/
 int randomNumber() {
     // // Seed the random number generator with the current time
     std::mt19937 generator(time(0));
